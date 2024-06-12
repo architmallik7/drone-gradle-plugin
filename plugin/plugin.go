@@ -16,10 +16,6 @@ type Args struct {
 
 	// Level defines the plugin log level.
 	Level string `envconfig:"PLUGIN_LOG_LEVEL"`
-
-	// TODO replace or remove
-	Param1 string `envconfig:"PLUGIN_PARAM1"`
-	Param2 string `envconfig:"PLUGIN_PARAM2"`
 }
 
 // Exec executes the plugin.

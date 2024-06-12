@@ -1,6 +1,3 @@
-# Use golang:1.22 as the builder stage
-FROM golang:1.22 as builder
-
 # Use Alpine Linux as the base image for the final stage
 FROM alpine:latest
 
