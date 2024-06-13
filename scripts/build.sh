@@ -12,4 +12,3 @@ export CGO_ENABLED=0
 # Build the Go executable for amd64 architecture
 GOOS=linux GOARCH=amd64 go build -o release/linux/amd64/drone-gradle-plugin ./main.go
 GOOS=linux GOARCH=arm64 go build -o release/linux/arm64/drone-gradle-plugin ./main.go
-GOOS=windows GOARCH=amd64 go build -o release/windows/amd64/drone-gradle-plugin ./main.go

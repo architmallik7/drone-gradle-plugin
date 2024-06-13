@@ -8,6 +8,7 @@ import (
 	"context"
 	"fmt"
 	"os/exec"
+	"strings"
 )
 
 // Args provides plugin execution arguments.
@@ -16,19 +17,25 @@ type Args struct {
 
 	// Level defines the plugin log level.
 	Level string `envconfig:"PLUGIN_LOG_LEVEL"`
+
+	// Goals defines the gradle targets/goals to execute.
+	Goals string `envconfig:"PLUGIN_GOALS"`
 }
 
 // Exec executes the plugin.
 func Exec(ctx context.Context, args Args) error {
-	// Execute Gradle build command
-	cmd := exec.Command("gradle", "build")
-	output, err := cmd.CombinedOutput()
+	// Split the goals into individual targets
+	goals := strings.Fields(args.Goals)
 
-	if err != nil {
-		fmt.Println("Error executing Gradle build command:", err)
-		return fmt.Errorf("error executing gradle build command")
+	// Run `gradle` command with specified goals
+	gradleCmd := exec.Command("gradle", goals...)
+	gradleOutput, gradleErr := gradleCmd.CombinedOutput()
+	if gradleErr != nil {
+		fmt.Println("Error running 'gradle "+args.Goals+"':", gradleErr)
+		fmt.Println(string(gradleOutput))
+		return fmt.Errorf("error running 'gradle %s': %w", args.Goals, gradleErr)
 	}
+	fmt.Println("Output of 'gradle "+args.Goals+"':", string(gradleOutput))
 
-	fmt.Println(string(output))
 	return nil
 }
