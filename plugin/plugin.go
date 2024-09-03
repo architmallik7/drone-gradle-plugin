@@ -23,6 +23,7 @@ type Args struct {
 }
 
 // Exec executes the plugin.
+// Testing
 func Exec(ctx context.Context, args Args) error {
 	fmt.Println("Stared the EXEC fucntion")
 	// Split the goals into individual targets
